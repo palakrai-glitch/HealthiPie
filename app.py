@@ -7,6 +7,9 @@ import json
 import os
 import requests # For Barcode API
 # ... existing imports ...
+from dotenv import load_dotenv
+load_dotenv() # Load environment variables from .env file
+
 
 app = Flask(__name__)
 app.secret_key = "super_secret_healthify_key"
@@ -17,8 +20,8 @@ client = MongoClient(MONGO_URI)
 db = client["healthipie"] # Explicitly naming the database fixes the ConfigError
 
 # --- 🔑 GEMINI AI CONFIGURATION ---
-os.environ["GEMINI_API_KEY"] = "AIzaSyDMbUGjb6EBhA0b6BB8NGK9qloIexqO1T0"
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+"GEMINI_API_KEY"= os.environ.get("GEMINI_API_KEY")
+genai.configure(api_key="GEMINI_API_KEY")
 
 # --- 🛠️ SIMPLE AI MODEL SETUP ---
 model = genai.GenerativeModel('gemini-flash-latest')
